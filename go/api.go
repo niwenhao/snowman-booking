@@ -32,6 +32,6 @@ type DefaultAPIRouter interface {
 // and updated with the logic required for the API.
 type DefaultAPIServicer interface { 
 	ResortsGet(context.Context) (ImplResponse, error)
-	ResortsResortIdHotelsGet(context.Context, string) (ImplResponse, error)
-	ResortsResortIdHotelsHotelIdBookingsPut(context.Context, string, string, Booking) (ImplResponse, error)
+	ResortsResortIdHotelsGet(context.Context, int32) (ImplResponse, error)
+	ResortsResortIdHotelsHotelIdBookingsPut(context.Context, int32, int32, Booking) (ImplResponse, error)
 }

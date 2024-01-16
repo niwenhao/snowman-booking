@@ -83,9 +83,12 @@ func (c *DefaultAPIController) ResortsGet(w http.ResponseWriter, r *http.Request
 // ResortsResortIdHotelsGet - スキー場のホテル一覧を取得する。
 func (c *DefaultAPIController) ResortsResortIdHotelsGet(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
-	resortIdParam := params["resortId"]
-	if resortIdParam == "" {
-		c.errorHandler(w, r, &RequiredError{"resortId"}, nil)
+	resortIdParam, err := parseNumericParameter[int32](
+		params["resortId"],
+		WithRequire[int32](parseInt32),
+	)
+	if err != nil {
+		c.errorHandler(w, r, &ParsingError{Err: err}, nil)
 		return
 	}
 	result, err := c.service.ResortsResortIdHotelsGet(r.Context(), resortIdParam)
@@ -101,14 +104,20 @@ func (c *DefaultAPIController) ResortsResortIdHotelsGet(w http.ResponseWriter, r
 // ResortsResortIdHotelsHotelIdBookingsPut - ホテルの予約をとる。
 func (c *DefaultAPIController) ResortsResortIdHotelsHotelIdBookingsPut(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
-	resortIdParam := params["resortId"]
-	if resortIdParam == "" {
-		c.errorHandler(w, r, &RequiredError{"resortId"}, nil)
+	resortIdParam, err := parseNumericParameter[int32](
+		params["resortId"],
+		WithRequire[int32](parseInt32),
+	)
+	if err != nil {
+		c.errorHandler(w, r, &ParsingError{Err: err}, nil)
 		return
 	}
-	hotelIdParam := params["hotelId"]
-	if hotelIdParam == "" {
-		c.errorHandler(w, r, &RequiredError{"hotelId"}, nil)
+	hotelIdParam, err := parseNumericParameter[int32](
+		params["hotelId"],
+		WithRequire[int32](parseInt32),
+	)
+	if err != nil {
+		c.errorHandler(w, r, &ParsingError{Err: err}, nil)
 		return
 	}
 	bookingParam := Booking{}

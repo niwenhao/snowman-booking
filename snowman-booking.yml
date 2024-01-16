@@ -27,7 +27,7 @@ paths:
           required: true
           description: スキー場の内部ID
           schema:
-            type: string
+            type: integer
       responses:
         '200':
           description: スキー場（resort_id）のホテル一覧
@@ -47,13 +47,13 @@ paths:
           required: true
           description: スキー場の内部ID
           schema:
-            type: string
+            type: integer
         - in: path
           name: hotelId
           required: true
           description: スキー場のホテルの内部ID
           schema:
-            type: string
+            type: integer
       requestBody:
         required: true
         description: ホテル予約情報

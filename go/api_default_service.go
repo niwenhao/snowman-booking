@@ -65,7 +65,7 @@ func (s *DefaultAPIService) ResortsGet(ctx context.Context) (ImplResponse, error
 }
 
 // ResortsResortIdHotelsGet - スキー場のホテル一覧を取得する。
-func (s *DefaultAPIService) ResortsResortIdHotelsGet(ctx context.Context, resortId string) (ImplResponse, error) {
+func (s *DefaultAPIService) ResortsResortIdHotelsGet(ctx context.Context, resortId int32) (ImplResponse, error) {
 	// TODO - update ResortsResortIdHotelsGet with the required logic for this service method.
 	// Add api_default_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
 
@@ -76,7 +76,7 @@ func (s *DefaultAPIService) ResortsResortIdHotelsGet(ctx context.Context, resort
 }
 
 // ResortsResortIdHotelsHotelIdBookingsPut - ホテルの予約をとる。
-func (s *DefaultAPIService) ResortsResortIdHotelsHotelIdBookingsPut(ctx context.Context, resortId string, hotelId string, booking Booking) (ImplResponse, error) {
+func (s *DefaultAPIService) ResortsResortIdHotelsHotelIdBookingsPut(ctx context.Context, resortId int32, hotelId int32, booking Booking) (ImplResponse, error) {
 	// TODO - update ResortsResortIdHotelsHotelIdBookingsPut with the required logic for this service method.
 	// Add api_default_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
 
