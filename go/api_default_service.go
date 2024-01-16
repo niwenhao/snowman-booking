@@ -72,6 +72,42 @@ func (s *DefaultAPIService) ResortsResortIdHotelsGet(ctx context.Context, resort
 	// TODO: Uncomment the next line to return response Response(200, []Object{}) or use other options such as http.Ok ...
 	// return Response(200, []Object{}), nil
 
+	if resortId == 1 {
+		hotels := []Hotel{
+			Hotel{
+				Id:      1,
+				Name:    "湯沢湯沢でんき屋",
+				Address: "〒949-6103 新潟県, 湯沢町, 土樽155",
+				TelNo:   "123-456-7890",
+			},
+			Hotel{
+				Id:      2,
+				Name:    "エンゼルリゾート湯沢",
+				Address: "〒949-6103 新潟県, 湯沢町",
+				TelNo:   "234-567-8901",
+			},
+		}
+		return Response(200, hotels), nil
+	}
+
+	if resortId == 2 {
+		hotels := []Hotel{
+			Hotel{
+				Id:      3,
+				Name:    "高砂屋旅館",
+				Address: "〒990-2301 山形県, 蔵王温泉, 蔵王温泉23",
+				TelNo:   "123-456-7890",
+			},
+			Hotel{
+				Id:      2,
+				Name:    "深山荘高見屋",
+				Address: "〒990-2301 山形県, 蔵王温泉, 蔵王温泉54",
+				TelNo:   "234-567-8901",
+			},
+		}
+		return Response(200, hotels), nil
+	}
+
 	return Response(http.StatusNotImplemented, nil), errors.New("ResortsResortIdHotelsGet method not implemented")
 }
 
@@ -86,5 +122,6 @@ func (s *DefaultAPIService) ResortsResortIdHotelsHotelIdBookingsPut(ctx context.
 	// TODO: Uncomment the next line to return response Response(404, Message{}) or use other options such as http.Ok ...
 	// return Response(404, Message{}), nil
 
-	return Response(http.StatusNotImplemented, nil), errors.New("ResortsResortIdHotelsHotelIdBookingsPut method not implemented")
+	return Response(200, booking), nil
+
 }
