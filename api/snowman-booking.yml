@@ -1,0 +1,177 @@
+openapi: '3.0.2'
+info:
+  title: スキー予約サービス
+  version: '1.0'
+  description: このサービスはスキーのサポートをするため、スキー場、スキー場の天気、スキー場のホテル、ホテルの予約などの機能を提供する。
+servers:
+  - url: https://api.server.test/v1
+paths:
+  /resorts:
+    get:
+      summary: スキー場の一覧を取得する。
+      responses:
+        '200':
+          description: スキー場の一覧を取得する。
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#components/schemas/resort"
+  /resorts/{resortId}/hotels:
+    get:
+      summary: スキー場のホテル一覧を取得する。
+      parameters:
+        - in: path
+          name: resortId
+          required: true
+          description: スキー場の内部ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: スキー場（resort_id）のホテル一覧
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  '$ref': '#components/schemas/hotel'
+
+  /resorts/{resortId}/hotels/{hotelId}/bookings:
+    put:
+      summary: ホテルの予約をとる。
+      parameters:
+        - in: path
+          name: resortId
+          required: true
+          description: スキー場の内部ID
+          schema:
+            type: string
+        - in: path
+          name: hotelId
+          required: true
+          description: スキー場のホテルの内部ID
+          schema:
+            type: string
+      requestBody:
+        required: true
+        description: ホテル予約情報
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/booking'
+      responses:
+        '200':
+          description: 予約取れました。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/booking'
+        '404':
+          description: 予約するホテルは空きがない。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/message'
+
+components:
+  schemas:
+    message:
+      type: object
+      properties:
+        code:
+          type: string
+          description: メッセージコード
+        message:
+          type: string
+          description: メッセージ内容
+    resort:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: スキー場の内部ID、このIDを使って、このスキー場に関連する操作を行える。
+        name:
+          type: string
+          description: スキー場の名称
+        address:
+          type: string
+          description: スキー場の住所
+        weather:
+          type: array
+          description: スキー場の天気状況、0番目は本日の天気、1番目は昨日の天気、2番目は一昨日の天気。。。。
+          items:
+            type: object
+            properties:
+              weather:
+                type: string
+                description: 天気状況（雨、晴れ、雪、曇り）
+                enum:
+                  - rain
+                  - sunny
+                  - snow
+                  - cloud
+              windSpeed:
+                type: integer
+                description: 風のスピード
+              snowDepth:
+                type: integer
+                description: 雪の厚さ、CM単位
+    hotel:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ホテルの内部ID、このIDを使って、ホテルを操作できる。
+        name:
+          type: string
+          description: ホテル名称
+        address:
+          type: string
+          description: ホテルの住所
+        telNo:
+          type: string
+          description: ホテル電話番号
+
+    booking:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: 取れた予約の内部ID
+        orderId:
+          type: string
+          description: お客様問い合わせ用注文番号
+        bookingGuest:
+          description: 代表者情報
+          $ref: '#/components/schemas/guest'
+        additionalGuests:
+          description: 同行者情報
+          type: array
+          items:
+            allOf:
+              - $ref: '#/components/schemas/guest'
+              - type: object
+                properties:
+                  relationShip:
+                    type: string
+
+    guest:
+      type: object
+      properties:
+        name:
+          description: 名前
+          type: string
+        gender:
+          description: 性別
+          type: string
+          enum:
+            - Male
+            - Female
+        age:
+          description: 年齢
+          type: integer
+        
+        
+          
