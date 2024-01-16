@@ -1,0 +1,207 @@
+openapi: 3.0.2
+info:
+  description: このサービスはスキーのサポートをするため、スキー場、スキー場の天気、スキー場のホテル、ホテルの予約などの機能を提供する。
+  title: スキー予約サービス
+  version: "1.0"
+servers:
+- url: https://api.server.test/v1
+paths:
+  /resorts:
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#components/schemas/resort'
+                type: array
+          description: スキー場の一覧を取得する。
+      summary: スキー場の一覧を取得する。
+  /resorts/{resortId}/hotels:
+    get:
+      parameters:
+      - description: スキー場の内部ID
+        explode: false
+        in: path
+        name: resortId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#components/schemas/hotel'
+                type: array
+          description: スキー場（resort_id）のホテル一覧
+      summary: スキー場のホテル一覧を取得する。
+  /resorts/{resortId}/hotels/{hotelId}/bookings:
+    put:
+      parameters:
+      - description: スキー場の内部ID
+        explode: false
+        in: path
+        name: resortId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: スキー場のホテルの内部ID
+        explode: false
+        in: path
+        name: hotelId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/booking'
+        description: ホテル予約情報
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/booking'
+          description: 予約取れました。
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/message'
+          description: 予約するホテルは空きがない。
+      summary: ホテルの予約をとる。
+components:
+  schemas:
+    message:
+      example:
+        code: code
+        message: message
+      properties:
+        code:
+          description: メッセージコード
+          type: string
+        message:
+          description: メッセージ内容
+          type: string
+      type: object
+    resort:
+      properties:
+        id:
+          description: スキー場の内部ID、このIDを使って、このスキー場に関連する操作を行える。
+          type: integer
+        name:
+          description: スキー場の名称
+          type: string
+        address:
+          description: スキー場の住所
+          type: string
+        weather:
+          description: スキー場の天気状況、0番目は本日の天気、1番目は昨日の天気、2番目は一昨日の天気。。。。
+          items:
+            $ref: '#/components/schemas/resort_weather_inner'
+          type: array
+      type: object
+    hotel:
+      properties:
+        id:
+          description: ホテルの内部ID、このIDを使って、ホテルを操作できる。
+          type: integer
+        name:
+          description: ホテル名称
+          type: string
+        address:
+          description: ホテルの住所
+          type: string
+        telNo:
+          description: ホテル電話番号
+          type: string
+      type: object
+    booking:
+      example:
+        additionalGuests:
+        - gender: Male
+          name: name
+          relationShip: relationShip
+          age: 1
+        - gender: Male
+          name: name
+          relationShip: relationShip
+          age: 1
+        orderId: orderId
+        bookingGuest:
+          gender: Male
+          name: name
+          age: 6
+        id: 0
+      properties:
+        id:
+          description: 取れた予約の内部ID
+          type: integer
+        orderId:
+          description: お客様問い合わせ用注文番号
+          type: string
+        bookingGuest:
+          $ref: '#/components/schemas/guest'
+        additionalGuests:
+          description: 同行者情報
+          items:
+            $ref: '#/components/schemas/booking_additionalGuests_inner'
+          type: array
+      type: object
+    guest:
+      example:
+        gender: Male
+        name: name
+        age: 6
+      properties:
+        name:
+          description: 名前
+          type: string
+        gender:
+          description: 性別
+          enum:
+          - Male
+          - Female
+          type: string
+        age:
+          description: 年齢
+          type: integer
+      type: object
+    resort_weather_inner:
+      properties:
+        weather:
+          description: 天気状況（雨、晴れ、雪、曇り）
+          enum:
+          - rain
+          - sunny
+          - snow
+          - cloud
+          type: string
+        windSpeed:
+          description: 風のスピード
+          type: integer
+        snowDepth:
+          description: 雪の厚さ、CM単位
+          type: integer
+      type: object
+    booking_additionalGuests_inner:
+      allOf:
+      - $ref: '#/components/schemas/guest'
+      - properties:
+          relationShip:
+            type: string
+        type: object
+      example:
+        gender: Male
+        name: name
+        relationShip: relationShip
+        age: 1
