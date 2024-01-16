@@ -11,8 +11,8 @@ package openapi
 
 import (
 	"context"
-	"net/http"
 	"errors"
+	"net/http"
 )
 
 // DefaultAPIService is a service that implements the logic for the DefaultAPIServicer
@@ -34,7 +34,34 @@ func (s *DefaultAPIService) ResortsGet(ctx context.Context) (ImplResponse, error
 	// TODO: Uncomment the next line to return response Response(200, []Object{}) or use other options such as http.Ok ...
 	// return Response(200, []Object{}), nil
 
-	return Response(http.StatusNotImplemented, nil), errors.New("ResortsGet method not implemented")
+	resorts := [...]Resort{
+		Resort{
+			Id:      1,
+			Name:    "岩原スキー場",
+			Address: "〒949-6103新潟県南魚沼郡湯沢町土樽731-79",
+			Weather: []ResortWeatherInner{
+				ResortWeatherInner{
+					Weather:   "sunny",
+					WindSpeed: 5,
+					SnowDepth: 50,
+				},
+			},
+		},
+		Resort{
+			Id:      2,
+			Name:    "蔵王温泉スキー場",
+			Address: "〒990-2301山形県山形市蔵王温泉",
+			Weather: []ResortWeatherInner{
+				ResortWeatherInner{
+					Weather:   "sunny",
+					WindSpeed: 5,
+					SnowDepth: 50,
+				},
+			},
+		},
+	}
+
+	return Response(200, resorts), nil
 }
 
 // ResortsResortIdHotelsGet - スキー場のホテル一覧を取得する。
