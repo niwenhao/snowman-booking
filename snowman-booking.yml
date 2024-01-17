@@ -9,7 +9,7 @@ paths:
   /resorts:
     get:
       summary: スキー場の一覧を取得する。
-      operationId: ResortGet
+      operationId: ResortsGet
       responses:
         '200':
           description: スキー場の一覧を取得する。
@@ -22,7 +22,7 @@ paths:
   /resorts/{resortId}/hotels:
     get:
       summary: スキー場のホテル一覧を取得する。
-      operationId: HotelsResortsGet
+      operationId: ResortsResortIdHotelsGet
       parameters:
         - in: path
           name: resortId
@@ -43,7 +43,7 @@ paths:
   /resorts/{resortId}/hotels/{hotelId}/bookings:
     put:
       summary: ホテルの予約をとる。
-      operationId: BookingsHotelsResortsPut
+      operationId: ResortsResortIdHotelsHotelIdBookingsPut
       parameters:
         - in: path
           name: resortId
