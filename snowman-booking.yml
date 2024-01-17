@@ -2,13 +2,14 @@ openapi: '3.0.2'
 info:
   title: スキー予約サービス
   version: '1.0'
-  description: このサービスはスキーのサポートをするため、スキー場、スキー場の天気、スキー場のホテル、ホテルの予約などの機能を提供する。
+  description: このサービスはスキー場一覧、スキー場のホテルの一覧、スキー場のホテルに予約することできます。
 servers:
-  - url: https://api.server.test/v1
+  - url: https://l5inw2zwqk5t3kmtrfh4oyq7gi.apigateway.ap-osaka-1.oci.customer-oci.com/v1
 paths:
   /resorts:
     get:
       summary: スキー場の一覧を取得する。
+      operationId: ResortGet
       responses:
         '200':
           description: スキー場の一覧を取得する。
@@ -21,6 +22,7 @@ paths:
   /resorts/{resortId}/hotels:
     get:
       summary: スキー場のホテル一覧を取得する。
+      operationId: HotelsResortsGet
       parameters:
         - in: path
           name: resortId
@@ -41,6 +43,7 @@ paths:
   /resorts/{resortId}/hotels/{hotelId}/bookings:
     put:
       summary: ホテルの予約をとる。
+      operationId: BookingsHotelsResortsPut
       parameters:
         - in: path
           name: resortId
