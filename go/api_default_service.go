@@ -13,6 +13,8 @@ import (
 	"context"
 	"errors"
 	"net/http"
+
+	"github.com/google/uuid"
 )
 
 // DefaultAPIService is a service that implements the logic for the DefaultAPIServicer
@@ -121,6 +123,8 @@ func (s *DefaultAPIService) ResortsResortIdHotelsHotelIdBookingsPut(ctx context.
 
 	// TODO: Uncomment the next line to return response Response(404, Message{}) or use other options such as http.Ok ...
 	// return Response(404, Message{}), nil
+	orderId := uuid.New()
+	booking.OrderId = orderId.String()
 
 	return Response(200, booking), nil
 
