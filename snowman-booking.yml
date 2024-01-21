@@ -140,9 +140,6 @@ components:
     booking:
       type: object
       properties:
-        id:
-          type: integer
-          description: 取れた予約の内部ID
         orderId:
           type: string
           description: お客様問い合わせ用注文番号
@@ -159,9 +156,16 @@ components:
                 properties:
                   relationShip:
                     type: string
+      required:
+        - orderId
+        - bookingGuest
 
     guest:
       type: object
+      required:
+        - name
+        - gender
+        - age
       properties:
         name:
           description: 名前

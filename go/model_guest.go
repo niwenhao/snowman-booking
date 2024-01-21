@@ -15,17 +15,28 @@ package openapi
 type Guest struct {
 
 	// 名前
-	Name string `json:"name,omitempty"`
+	Name string `json:"name"`
 
 	// 性別
-	Gender string `json:"gender,omitempty"`
+	Gender string `json:"gender"`
 
 	// 年齢
-	Age int32 `json:"age,omitempty"`
+	Age int32 `json:"age"`
 }
 
 // AssertGuestRequired checks if the required fields are not zero-ed
 func AssertGuestRequired(obj Guest) error {
+	elements := map[string]interface{}{
+		"name": obj.Name,
+		"gender": obj.Gender,
+		"age": obj.Age,
+	}
+	for name, el := range elements {
+		if isZero := IsZeroValue(el); isZero {
+			return &RequiredError{Field: name}
+		}
+	}
+
 	return nil
 }
 

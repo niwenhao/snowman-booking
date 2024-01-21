@@ -32,3 +32,12 @@ Once image is built use
 ```
 docker run --rm -it openapi
 ```
+
+Generate code from OpenAPI defination
+```
+podman run --rm -v ${PWD}:/local docker.io/openapitools/openapi-generator-cli \
+       generate \
+       -i /local/snowman-booking.yml \
+       -g go-server \
+       -o /local/generated
+```

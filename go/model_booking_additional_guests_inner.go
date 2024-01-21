@@ -15,19 +15,30 @@ package openapi
 type BookingAdditionalGuestsInner struct {
 
 	// 名前
-	Name string `json:"name,omitempty"`
+	Name string `json:"name"`
 
 	// 性別
-	Gender string `json:"gender,omitempty"`
+	Gender string `json:"gender"`
 
 	// 年齢
-	Age int32 `json:"age,omitempty"`
+	Age int32 `json:"age"`
 
 	RelationShip string `json:"relationShip,omitempty"`
 }
 
 // AssertBookingAdditionalGuestsInnerRequired checks if the required fields are not zero-ed
 func AssertBookingAdditionalGuestsInnerRequired(obj BookingAdditionalGuestsInner) error {
+	elements := map[string]interface{}{
+		"name": obj.Name,
+		"gender": obj.Gender,
+		"age": obj.Age,
+	}
+	for name, el := range elements {
+		if isZero := IsZeroValue(el); isZero {
+			return &RequiredError{Field: name}
+		}
+	}
+
 	return nil
 }
 
