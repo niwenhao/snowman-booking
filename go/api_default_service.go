@@ -17,6 +17,8 @@ import (
 	"github.com/google/uuid"
 )
 
+var orders = make(map[string]Booking)
+
 // DefaultAPIService is a service that implements the logic for the DefaultAPIServicer
 // This service should implement the business logic for every endpoint for the DefaultAPI API.
 // Include any external packages or services that will be required by this service.
