@@ -24,5 +24,5 @@ func main() {
 
 	router := openapi.NewRouter(DefaultAPIController)
 
-	log.Fatal(http.ListenAndServe(":80", router))
+	log.Fatal(http.ListenAndServe(":8080", router))
 }
