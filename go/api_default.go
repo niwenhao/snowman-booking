@@ -130,12 +130,9 @@ func (c *DefaultAPIController) ResortsResortIdHotelsHotelIdBookingsOrderNoDelete
 		c.errorHandler(w, r, &ParsingError{Err: err}, nil)
 		return
 	}
-	orderNoParam, err := parseNumericParameter[int32](
-		params["orderNo"],
-		WithRequire[int32](parseInt32),
-	)
-	if err != nil {
-		c.errorHandler(w, r, &ParsingError{Err: err}, nil)
+	orderNoParam := params["orderNo"]
+	if orderNoParam == "" {
+		c.errorHandler(w, r, &RequiredError{"orderNo"}, nil)
 		return
 	}
 	result, err := c.service.ResortsResortIdHotelsHotelIdBookingsOrderNoDelete(r.Context(), resortIdParam, hotelIdParam, orderNoParam)
@@ -167,12 +164,9 @@ func (c *DefaultAPIController) ResortsResortIdHotelsHotelIdBookingsOrderNoPut(w 
 		c.errorHandler(w, r, &ParsingError{Err: err}, nil)
 		return
 	}
-	orderNoParam, err := parseNumericParameter[int32](
-		params["orderNo"],
-		WithRequire[int32](parseInt32),
-	)
-	if err != nil {
-		c.errorHandler(w, r, &ParsingError{Err: err}, nil)
+	orderNoParam := params["orderNo"]
+	if orderNoParam == "" {
+		c.errorHandler(w, r, &RequiredError{"orderNo"}, nil)
 		return
 	}
 	bookingParam := Booking{}

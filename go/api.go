@@ -35,7 +35,7 @@ type DefaultAPIRouter interface {
 type DefaultAPIServicer interface { 
 	ResortsGet(context.Context) (ImplResponse, error)
 	ResortsResortIdHotelsGet(context.Context, int32) (ImplResponse, error)
-	ResortsResortIdHotelsHotelIdBookingsOrderNoDelete(context.Context, int32, int32, int32) (ImplResponse, error)
-	ResortsResortIdHotelsHotelIdBookingsOrderNoPut(context.Context, int32, int32, int32, Booking) (ImplResponse, error)
+	ResortsResortIdHotelsHotelIdBookingsOrderNoDelete(context.Context, int32, int32, string) (ImplResponse, error)
+	ResortsResortIdHotelsHotelIdBookingsOrderNoPut(context.Context, int32, int32, string, Booking) (ImplResponse, error)
 	ResortsResortIdHotelsHotelIdBookingsPost(context.Context, int32, int32, Booking) (ImplResponse, error)
 }

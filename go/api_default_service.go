@@ -120,7 +120,7 @@ func (s *DefaultAPIService) ResortsResortIdHotelsGet(ctx context.Context, resort
 }
 
 // ResortsResortIdHotelsHotelIdBookingsOrderNoDelete - ホテルの予約を取り消しする。
-func (s *DefaultAPIService) ResortsResortIdHotelsHotelIdBookingsOrderNoDelete(ctx context.Context, resortId int32, hotelId int32, orderNo int32) (ImplResponse, error) {
+func (s *DefaultAPIService) ResortsResortIdHotelsHotelIdBookingsOrderNoDelete(ctx context.Context, resortId int32, hotelId int32, orderNo string) (ImplResponse, error) {
 	// TODO - update ResortsResortIdHotelsHotelIdBookingsOrderNoDelete with the required logic for this service method.
 	// Add api_default_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
 
@@ -134,7 +134,7 @@ func (s *DefaultAPIService) ResortsResortIdHotelsHotelIdBookingsOrderNoDelete(ct
 }
 
 // ResortsResortIdHotelsHotelIdBookingsOrderNoPut - ホテルの予約を変更する。
-func (s *DefaultAPIService) ResortsResortIdHotelsHotelIdBookingsOrderNoPut(ctx context.Context, resortId int32, hotelId int32, orderNo int32, booking Booking) (ImplResponse, error) {
+func (s *DefaultAPIService) ResortsResortIdHotelsHotelIdBookingsOrderNoPut(ctx context.Context, resortId int32, hotelId int32, orderNo string, booking Booking) (ImplResponse, error) {
 	// TODO - update ResortsResortIdHotelsHotelIdBookingsOrderNoPut with the required logic for this service method.
 	// Add api_default_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
 
