@@ -17,6 +17,9 @@ type Booking struct {
 	// お客様問い合わせ用注文番号
 	OrderId string `json:"orderId"`
 
+	// 予約するホテルの内部ID
+	HotelId int32 `json:"hotelId,omitempty"`
+
 	BookingGuest Guest `json:"bookingGuest"`
 
 	// 同行者情報

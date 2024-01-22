@@ -17,6 +17,9 @@ type Hotel struct {
 	// ホテルの内部ID、このIDを使って、ホテルを操作できる。
 	Id int32 `json:"id,omitempty"`
 
+	// ホテルのあるスキー場の内部ID
+	ResortId int32 `json:"resortId,omitempty"`
+
 	// ホテル名称
 	Name string `json:"name,omitempty"`
 
