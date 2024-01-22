@@ -79,16 +79,18 @@ func (s *DefaultAPIService) ResortsResortIdHotelsGet(ctx context.Context, resort
 	if resortId == 1 {
 		hotels := []Hotel{
 			Hotel{
-				Id:      1,
-				Name:    "湯沢湯沢でんき屋",
-				Address: "〒949-6103 新潟県, 湯沢町, 土樽155",
-				TelNo:   "123-456-7890",
+				Id:       1,
+				ResortId: 1,
+				Name:     "湯沢湯沢でんき屋",
+				Address:  "〒949-6103 新潟県, 湯沢町, 土樽155",
+				TelNo:    "123-456-7890",
 			},
 			Hotel{
-				Id:      2,
-				Name:    "エンゼルリゾート湯沢",
-				Address: "〒949-6103 新潟県, 湯沢町",
-				TelNo:   "234-567-8901",
+				Id:       2,
+				ResortId: 1,
+				Name:     "エンゼルリゾート湯沢",
+				Address:  "〒949-6103 新潟県, 湯沢町",
+				TelNo:    "234-567-8901",
 			},
 		}
 		return Response(200, hotels), nil
@@ -97,16 +99,18 @@ func (s *DefaultAPIService) ResortsResortIdHotelsGet(ctx context.Context, resort
 	if resortId == 2 {
 		hotels := []Hotel{
 			Hotel{
-				Id:      3,
-				Name:    "高砂屋旅館",
-				Address: "〒990-2301 山形県, 蔵王温泉, 蔵王温泉23",
-				TelNo:   "123-456-7890",
+				Id:       3,
+				ResortId: 2,
+				Name:     "高砂屋旅館",
+				Address:  "〒990-2301 山形県, 蔵王温泉, 蔵王温泉23",
+				TelNo:    "123-456-7890",
 			},
 			Hotel{
-				Id:      2,
-				Name:    "深山荘高見屋",
-				Address: "〒990-2301 山形県, 蔵王温泉, 蔵王温泉54",
-				TelNo:   "234-567-8901",
+				Id:       2,
+				ResortId: 2,
+				Name:     "深山荘高見屋",
+				Address:  "〒990-2301 山形県, 蔵王温泉, 蔵王温泉54",
+				TelNo:    "234-567-8901",
 			},
 		}
 		return Response(200, hotels), nil
@@ -127,6 +131,9 @@ func (s *DefaultAPIService) ResortsResortIdHotelsHotelIdBookingsPut(ctx context.
 	// return Response(404, Message{}), nil
 	orderId := uuid.New()
 	booking.OrderId = orderId.String()
+	booking.HotelId = hotelId
+
+	orders[booking.OrderId] = booking
 
 	return Response(200, booking), nil
 
