@@ -41,9 +41,9 @@ paths:
                   '$ref': '#components/schemas/hotel'
 
   /resorts/{resortId}/hotels/{hotelId}/bookings:
-    put:
+    post:
       summary: ホテルの予約をとる。
-      operationId: ResortsResortIdHotelsHotelIdBookingsPut
+      operationId: ResortsResortIdHotelsHotelIdBookingsPost
       parameters:
         - in: path
           name: resortId
@@ -73,6 +73,85 @@ paths:
                 $ref: '#/components/schemas/booking'
         '404':
           description: 予約するホテルは空きがない。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/message'
+
+  /resorts/{resortId}/hotels/{hotelId}/bookings/{orderNo}:
+    put:
+      summary: ホテルの予約を変更する。
+      operationId: ResortsResortIdHotelsHotelIdBookingsOrderNoPut
+      parameters:
+        - in: path
+          name: resortId
+          required: true
+          description: スキー場の内部ID
+          schema:
+            type: integer
+        - in: path
+          name: hotelId
+          required: true
+          description: スキー場のホテルの内部ID
+          schema:
+            type: integer
+        - in: path
+          name: orderNo
+          required: true
+          description: ホテル予約の注文番号
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        description: ホテル予約情報
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/booking'
+      responses:
+        '200':
+          description: 予約を変更ました。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/booking'
+        '404':
+          description: 変更対象予約が見つかりません。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/message'
+    delete:
+      summary: ホテルの予約を取り消しする。
+      operationId: ResortsResortIdHotelsHotelIdBookingsOrderNoDelete
+      parameters:
+        - in: path
+          name: resortId
+          required: true
+          description: スキー場の内部ID
+          schema:
+            type: integer
+        - in: path
+          name: hotelId
+          required: true
+          description: スキー場のホテルの内部ID
+          schema:
+            type: integer
+        - in: path
+          name: orderNo
+          required: true
+          description: ホテル予約の注文番号
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 予約を取り消しました。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/booking'
+        '404':
+          description: 取り消し対象予約が見つかりません。
           content:
             application/json:
               schema:
@@ -143,7 +222,7 @@ components:
     booking:
       type: object
       properties:
-        orderId:
+        orderNo:
           type: string
           description: お客様問い合わせ用注文番号
         hotelId:
