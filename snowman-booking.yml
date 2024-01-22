@@ -19,13 +19,13 @@ paths:
                 type: array
                 items:
                   "$ref": "#components/schemas/resort"
-  /resorts/{resortId}/hotels:
+  /resorts/{p_resortId}/hotels:
     get:
       summary: スキー場のホテル一覧を取得する。
       operationId: ResortsResortIdHotelsGet
       parameters:
         - in: path
-          name: resortId
+          name: p_resortId
           required: true
           description: スキー場の内部ID
           schema:
@@ -40,19 +40,19 @@ paths:
                 items:
                   '$ref': '#components/schemas/hotel'
 
-  /resorts/{resortId}/hotels/{hotelId}/bookings:
+  /resorts/{p_resortId}/hotels/{p_hotelId}/bookings:
     post:
       summary: ホテルの予約をとる。
       operationId: ResortsResortIdHotelsHotelIdBookingsPost
       parameters:
         - in: path
-          name: resortId
+          name: p_resortId
           required: true
           description: スキー場の内部ID
           schema:
             type: integer
         - in: path
-          name: hotelId
+          name: p_hotelId
           required: true
           description: スキー場のホテルの内部ID
           schema:
@@ -78,25 +78,25 @@ paths:
               schema:
                 $ref: '#/components/schemas/message'
 
-  /resorts/{resortId}/hotels/{hotelId}/bookings/{orderNo}:
+  /resorts/{p_resortId}/hotels/{p_hotelId}/bookings/{p_orderNo}:
     put:
       summary: ホテルの予約を変更する。
       operationId: ResortsResortIdHotelsHotelIdBookingsOrderNoPut
       parameters:
         - in: path
-          name: resortId
+          name: p_resortId
           required: true
           description: スキー場の内部ID
           schema:
             type: integer
         - in: path
-          name: hotelId
+          name: p_hotelId
           required: true
           description: スキー場のホテルの内部ID
           schema:
             type: integer
         - in: path
-          name: orderNo
+          name: p_orderNo
           required: true
           description: ホテル予約の注文番号
           schema:
@@ -126,19 +126,19 @@ paths:
       operationId: ResortsResortIdHotelsHotelIdBookingsOrderNoDelete
       parameters:
         - in: path
-          name: resortId
+          name: p_resortId
           required: true
           description: スキー場の内部ID
           schema:
             type: integer
         - in: path
-          name: hotelId
+          name: p_hotelId
           required: true
           description: スキー場のホテルの内部ID
           schema:
             type: integer
         - in: path
-          name: orderNo
+          name: p_orderNo
           required: true
           description: ホテル予約の注文番号
           schema:

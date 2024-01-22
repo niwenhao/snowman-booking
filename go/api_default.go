@@ -57,22 +57,22 @@ func (c *DefaultAPIController) Routes() Routes {
 		},
 		"ResortsResortIdHotelsGet": Route{
 			strings.ToUpper("Get"),
-			"/v1/resorts/{resortId}/hotels",
+			"/v1/resorts/{p_resortId}/hotels",
 			c.ResortsResortIdHotelsGet,
 		},
 		"ResortsResortIdHotelsHotelIdBookingsOrderNoDelete": Route{
 			strings.ToUpper("Delete"),
-			"/v1/resorts/{resortId}/hotels/{hotelId}/bookings/{orderNo}",
+			"/v1/resorts/{p_resortId}/hotels/{p_hotelId}/bookings/{p_orderNo}",
 			c.ResortsResortIdHotelsHotelIdBookingsOrderNoDelete,
 		},
 		"ResortsResortIdHotelsHotelIdBookingsOrderNoPut": Route{
 			strings.ToUpper("Put"),
-			"/v1/resorts/{resortId}/hotels/{hotelId}/bookings/{orderNo}",
+			"/v1/resorts/{p_resortId}/hotels/{p_hotelId}/bookings/{p_orderNo}",
 			c.ResortsResortIdHotelsHotelIdBookingsOrderNoPut,
 		},
 		"ResortsResortIdHotelsHotelIdBookingsPost": Route{
 			strings.ToUpper("Post"),
-			"/v1/resorts/{resortId}/hotels/{hotelId}/bookings",
+			"/v1/resorts/{p_resortId}/hotels/{p_hotelId}/bookings",
 			c.ResortsResortIdHotelsHotelIdBookingsPost,
 		},
 	}
@@ -93,15 +93,15 @@ func (c *DefaultAPIController) ResortsGet(w http.ResponseWriter, r *http.Request
 // ResortsResortIdHotelsGet - スキー場のホテル一覧を取得する。
 func (c *DefaultAPIController) ResortsResortIdHotelsGet(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
-	resortIdParam, err := parseNumericParameter[int32](
-		params["resortId"],
+	pResortIdParam, err := parseNumericParameter[int32](
+		params["p_resortId"],
 		WithRequire[int32](parseInt32),
 	)
 	if err != nil {
 		c.errorHandler(w, r, &ParsingError{Err: err}, nil)
 		return
 	}
-	result, err := c.service.ResortsResortIdHotelsGet(r.Context(), resortIdParam)
+	result, err := c.service.ResortsResortIdHotelsGet(r.Context(), pResortIdParam)
 	// If an error occurred, encode the error with the status code
 	if err != nil {
 		c.errorHandler(w, r, err, &result)
@@ -114,28 +114,28 @@ func (c *DefaultAPIController) ResortsResortIdHotelsGet(w http.ResponseWriter, r
 // ResortsResortIdHotelsHotelIdBookingsOrderNoDelete - ホテルの予約を取り消しする。
 func (c *DefaultAPIController) ResortsResortIdHotelsHotelIdBookingsOrderNoDelete(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
-	resortIdParam, err := parseNumericParameter[int32](
-		params["resortId"],
+	pResortIdParam, err := parseNumericParameter[int32](
+		params["p_resortId"],
 		WithRequire[int32](parseInt32),
 	)
 	if err != nil {
 		c.errorHandler(w, r, &ParsingError{Err: err}, nil)
 		return
 	}
-	hotelIdParam, err := parseNumericParameter[int32](
-		params["hotelId"],
+	pHotelIdParam, err := parseNumericParameter[int32](
+		params["p_hotelId"],
 		WithRequire[int32](parseInt32),
 	)
 	if err != nil {
 		c.errorHandler(w, r, &ParsingError{Err: err}, nil)
 		return
 	}
-	orderNoParam := params["orderNo"]
-	if orderNoParam == "" {
-		c.errorHandler(w, r, &RequiredError{"orderNo"}, nil)
+	pOrderNoParam := params["p_orderNo"]
+	if pOrderNoParam == "" {
+		c.errorHandler(w, r, &RequiredError{"p_orderNo"}, nil)
 		return
 	}
-	result, err := c.service.ResortsResortIdHotelsHotelIdBookingsOrderNoDelete(r.Context(), resortIdParam, hotelIdParam, orderNoParam)
+	result, err := c.service.ResortsResortIdHotelsHotelIdBookingsOrderNoDelete(r.Context(), pResortIdParam, pHotelIdParam, pOrderNoParam)
 	// If an error occurred, encode the error with the status code
 	if err != nil {
 		c.errorHandler(w, r, err, &result)
@@ -148,25 +148,25 @@ func (c *DefaultAPIController) ResortsResortIdHotelsHotelIdBookingsOrderNoDelete
 // ResortsResortIdHotelsHotelIdBookingsOrderNoPut - ホテルの予約を変更する。
 func (c *DefaultAPIController) ResortsResortIdHotelsHotelIdBookingsOrderNoPut(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
-	resortIdParam, err := parseNumericParameter[int32](
-		params["resortId"],
+	pResortIdParam, err := parseNumericParameter[int32](
+		params["p_resortId"],
 		WithRequire[int32](parseInt32),
 	)
 	if err != nil {
 		c.errorHandler(w, r, &ParsingError{Err: err}, nil)
 		return
 	}
-	hotelIdParam, err := parseNumericParameter[int32](
-		params["hotelId"],
+	pHotelIdParam, err := parseNumericParameter[int32](
+		params["p_hotelId"],
 		WithRequire[int32](parseInt32),
 	)
 	if err != nil {
 		c.errorHandler(w, r, &ParsingError{Err: err}, nil)
 		return
 	}
-	orderNoParam := params["orderNo"]
-	if orderNoParam == "" {
-		c.errorHandler(w, r, &RequiredError{"orderNo"}, nil)
+	pOrderNoParam := params["p_orderNo"]
+	if pOrderNoParam == "" {
+		c.errorHandler(w, r, &RequiredError{"p_orderNo"}, nil)
 		return
 	}
 	bookingParam := Booking{}
@@ -184,7 +184,7 @@ func (c *DefaultAPIController) ResortsResortIdHotelsHotelIdBookingsOrderNoPut(w 
 		c.errorHandler(w, r, err, nil)
 		return
 	}
-	result, err := c.service.ResortsResortIdHotelsHotelIdBookingsOrderNoPut(r.Context(), resortIdParam, hotelIdParam, orderNoParam, bookingParam)
+	result, err := c.service.ResortsResortIdHotelsHotelIdBookingsOrderNoPut(r.Context(), pResortIdParam, pHotelIdParam, pOrderNoParam, bookingParam)
 	// If an error occurred, encode the error with the status code
 	if err != nil {
 		c.errorHandler(w, r, err, &result)
@@ -197,16 +197,16 @@ func (c *DefaultAPIController) ResortsResortIdHotelsHotelIdBookingsOrderNoPut(w 
 // ResortsResortIdHotelsHotelIdBookingsPost - ホテルの予約をとる。
 func (c *DefaultAPIController) ResortsResortIdHotelsHotelIdBookingsPost(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
-	resortIdParam, err := parseNumericParameter[int32](
-		params["resortId"],
+	pResortIdParam, err := parseNumericParameter[int32](
+		params["p_resortId"],
 		WithRequire[int32](parseInt32),
 	)
 	if err != nil {
 		c.errorHandler(w, r, &ParsingError{Err: err}, nil)
 		return
 	}
-	hotelIdParam, err := parseNumericParameter[int32](
-		params["hotelId"],
+	pHotelIdParam, err := parseNumericParameter[int32](
+		params["p_hotelId"],
 		WithRequire[int32](parseInt32),
 	)
 	if err != nil {
@@ -228,7 +228,7 @@ func (c *DefaultAPIController) ResortsResortIdHotelsHotelIdBookingsPost(w http.R
 		c.errorHandler(w, r, err, nil)
 		return
 	}
-	result, err := c.service.ResortsResortIdHotelsHotelIdBookingsPost(r.Context(), resortIdParam, hotelIdParam, bookingParam)
+	result, err := c.service.ResortsResortIdHotelsHotelIdBookingsPost(r.Context(), pResortIdParam, pHotelIdParam, bookingParam)
 	// If an error occurred, encode the error with the status code
 	if err != nil {
 		c.errorHandler(w, r, err, &result)

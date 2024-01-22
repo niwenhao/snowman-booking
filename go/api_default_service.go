@@ -70,14 +70,14 @@ func (s *DefaultAPIService) ResortsGet(ctx context.Context) (ImplResponse, error
 }
 
 // ResortsResortIdHotelsGet - スキー場のホテル一覧を取得する。
-func (s *DefaultAPIService) ResortsResortIdHotelsGet(ctx context.Context, resortId int32) (ImplResponse, error) {
+func (s *DefaultAPIService) ResortsResortIdHotelsGet(ctx context.Context, pResortId int32) (ImplResponse, error) {
 	// TODO - update ResortsResortIdHotelsGet with the required logic for this service method.
 	// Add api_default_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
 
 	// TODO: Uncomment the next line to return response Response(200, []Object{}) or use other options such as http.Ok ...
 	// return Response(200, []Object{}), nil
 
-	if resortId == 1 {
+	if pResortId == 1 {
 		hotels := []Hotel{
 			Hotel{
 				Id:       1,
@@ -97,7 +97,7 @@ func (s *DefaultAPIService) ResortsResortIdHotelsGet(ctx context.Context, resort
 		return Response(200, hotels), nil
 	}
 
-	if resortId == 2 {
+	if pResortId == 2 {
 		hotels := []Hotel{
 			Hotel{
 				Id:       3,
@@ -121,7 +121,7 @@ func (s *DefaultAPIService) ResortsResortIdHotelsGet(ctx context.Context, resort
 }
 
 // ResortsResortIdHotelsHotelIdBookingsOrderNoDelete - ホテルの予約を取り消しする。
-func (s *DefaultAPIService) ResortsResortIdHotelsHotelIdBookingsOrderNoDelete(ctx context.Context, resortId int32, hotelId int32, orderNo string) (ImplResponse, error) {
+func (s *DefaultAPIService) ResortsResortIdHotelsHotelIdBookingsOrderNoDelete(ctx context.Context, pResortId int32, pHotelId int32, pOrderNo string) (ImplResponse, error) {
 	// TODO - update ResortsResortIdHotelsHotelIdBookingsOrderNoDelete with the required logic for this service method.
 	// Add api_default_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
 
@@ -130,21 +130,21 @@ func (s *DefaultAPIService) ResortsResortIdHotelsHotelIdBookingsOrderNoDelete(ct
 
 	// TODO: Uncomment the next line to return response Response(404, Message{}) or use other options such as http.Ok ...
 	// return Response(404, Message{}), nil
-	booking := orders[orderNo]
+	booking := orders[pOrderNo]
 
 	if booking.OrderNo == "" {
 		return Response(http.StatusNotFound, Message{
 			Code:    "XXX404",
-			Message: fmt.Sprintf("削除対象予約が存在しません。OrderNo=%s", orderNo),
+			Message: fmt.Sprintf("削除対象予約が存在しません。OrderNo=%s", pOrderNo),
 		}), nil
 	} else {
-		delete(orders, orderNo)
+		delete(orders, pOrderNo)
 		return Response(http.StatusOK, booking), nil
 	}
 }
 
 // ResortsResortIdHotelsHotelIdBookingsOrderNoPut - ホテルの予約を変更する。
-func (s *DefaultAPIService) ResortsResortIdHotelsHotelIdBookingsOrderNoPut(ctx context.Context, resortId int32, hotelId int32, orderNo string, booking Booking) (ImplResponse, error) {
+func (s *DefaultAPIService) ResortsResortIdHotelsHotelIdBookingsOrderNoPut(ctx context.Context, pResortId int32, pHotelId int32, pOrderNo string, booking Booking) (ImplResponse, error) {
 	// TODO - update ResortsResortIdHotelsHotelIdBookingsOrderNoPut with the required logic for this service method.
 	// Add api_default_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
 
@@ -154,23 +154,23 @@ func (s *DefaultAPIService) ResortsResortIdHotelsHotelIdBookingsOrderNoPut(ctx c
 	// TODO: Uncomment the next line to return response Response(404, Message{}) or use other options such as http.Ok ...
 	// return Response(404, Message{}), nil
 
-	oldBooking := orders[orderNo]
+	oldBooking := orders[pOrderNo]
 
 	if oldBooking.OrderNo == "" {
 		return Response(http.StatusNotFound, Message{
 			Code:    "XXX404",
-			Message: fmt.Sprintf("変更対象が存在しません。OrderNo=%s", orderNo),
+			Message: fmt.Sprintf("変更対象が存在しません。OrderNo=%s", pOrderNo),
 		}), nil
 	} else {
-		booking.HotelId = hotelId
-		booking.OrderNo = orderNo
-		orders[orderNo] = booking
+		booking.HotelId = pHotelId
+		booking.OrderNo = pOrderNo
+		orders[pOrderNo] = booking
 		return Response(http.StatusOK, booking), nil
 	}
 }
 
 // ResortsResortIdHotelsHotelIdBookingsPost - ホテルの予約をとる。
-func (s *DefaultAPIService) ResortsResortIdHotelsHotelIdBookingsPost(ctx context.Context, resortId int32, hotelId int32, booking Booking) (ImplResponse, error) {
+func (s *DefaultAPIService) ResortsResortIdHotelsHotelIdBookingsPost(ctx context.Context, pResortId int32, pHotelId int32, booking Booking) (ImplResponse, error) {
 	// TODO - update ResortsResortIdHotelsHotelIdBookingsPost with the required logic for this service method.
 	// Add api_default_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
 
@@ -181,7 +181,7 @@ func (s *DefaultAPIService) ResortsResortIdHotelsHotelIdBookingsPost(ctx context
 	// return Response(404, Message{}), nil
 	orderNo := uuid.New()
 	booking.OrderNo = orderNo.String()
-	booking.HotelId = hotelId
+	booking.HotelId = pHotelId
 
 	orders[booking.OrderNo] = booking
 
