@@ -127,6 +127,9 @@ components:
         id:
           type: integer
           description: ホテルの内部ID、このIDを使って、ホテルを操作できる。
+        resortId:
+          type: integer
+          description: ホテルのあるスキー場の内部ID
         name:
           type: string
           description: ホテル名称
@@ -143,6 +146,9 @@ components:
         orderId:
           type: string
           description: お客様問い合わせ用注文番号
+        hotelId:
+          type: integer
+          description: 予約するホテルの内部ID
         bookingGuest:
           description: 代表者情報
           $ref: '#/components/schemas/guest'
