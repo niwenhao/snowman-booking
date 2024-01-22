@@ -15,7 +15,7 @@ package openapi
 type Booking struct {
 
 	// お客様問い合わせ用注文番号
-	OrderId string `json:"orderId"`
+	OrderNo string `json:"orderNo,omitempty"`
 
 	// 予約するホテルの内部ID
 	HotelId int32 `json:"hotelId,omitempty"`
@@ -29,7 +29,6 @@ type Booking struct {
 // AssertBookingRequired checks if the required fields are not zero-ed
 func AssertBookingRequired(obj Booking) error {
 	elements := map[string]interface{}{
-		"orderId": obj.OrderId,
 		"bookingGuest": obj.BookingGuest,
 	}
 	for name, el := range elements {

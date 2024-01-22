@@ -119,9 +119,9 @@ func (s *DefaultAPIService) ResortsResortIdHotelsGet(ctx context.Context, resort
 	return Response(http.StatusNotImplemented, nil), errors.New("ResortsResortIdHotelsGet method not implemented")
 }
 
-// ResortsResortIdHotelsHotelIdBookingsPut - ホテルの予約をとる。
-func (s *DefaultAPIService) ResortsResortIdHotelsHotelIdBookingsPut(ctx context.Context, resortId int32, hotelId int32, booking Booking) (ImplResponse, error) {
-	// TODO - update ResortsResortIdHotelsHotelIdBookingsPut with the required logic for this service method.
+// ResortsResortIdHotelsHotelIdBookingsOrderNoDelete - ホテルの予約を取り消しする。
+func (s *DefaultAPIService) ResortsResortIdHotelsHotelIdBookingsOrderNoDelete(ctx context.Context, resortId int32, hotelId int32, orderNo int32) (ImplResponse, error) {
+	// TODO - update ResortsResortIdHotelsHotelIdBookingsOrderNoDelete with the required logic for this service method.
 	// Add api_default_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
 
 	// TODO: Uncomment the next line to return response Response(200, Booking{}) or use other options such as http.Ok ...
@@ -129,12 +129,39 @@ func (s *DefaultAPIService) ResortsResortIdHotelsHotelIdBookingsPut(ctx context.
 
 	// TODO: Uncomment the next line to return response Response(404, Message{}) or use other options such as http.Ok ...
 	// return Response(404, Message{}), nil
-	orderId := uuid.New()
-	booking.OrderId = orderId.String()
+
+	return Response(http.StatusNotImplemented, nil), errors.New("ResortsResortIdHotelsHotelIdBookingsOrderNoDelete method not implemented")
+}
+
+// ResortsResortIdHotelsHotelIdBookingsOrderNoPut - ホテルの予約を変更する。
+func (s *DefaultAPIService) ResortsResortIdHotelsHotelIdBookingsOrderNoPut(ctx context.Context, resortId int32, hotelId int32, orderNo int32, booking Booking) (ImplResponse, error) {
+	// TODO - update ResortsResortIdHotelsHotelIdBookingsOrderNoPut with the required logic for this service method.
+	// Add api_default_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
+
+	// TODO: Uncomment the next line to return response Response(200, Booking{}) or use other options such as http.Ok ...
+	// return Response(200, Booking{}), nil
+
+	// TODO: Uncomment the next line to return response Response(404, Message{}) or use other options such as http.Ok ...
+	// return Response(404, Message{}), nil
+
+	return Response(http.StatusNotImplemented, nil), errors.New("ResortsResortIdHotelsHotelIdBookingsOrderNoPut method not implemented")
+}
+
+// ResortsResortIdHotelsHotelIdBookingsPost - ホテルの予約をとる。
+func (s *DefaultAPIService) ResortsResortIdHotelsHotelIdBookingsPost(ctx context.Context, resortId int32, hotelId int32, booking Booking) (ImplResponse, error) {
+	// TODO - update ResortsResortIdHotelsHotelIdBookingsPost with the required logic for this service method.
+	// Add api_default_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
+
+	// TODO: Uncomment the next line to return response Response(200, Booking{}) or use other options such as http.Ok ...
+	// return Response(200, Booking{}), nil
+
+	// TODO: Uncomment the next line to return response Response(404, Message{}) or use other options such as http.Ok ...
+	// return Response(404, Message{}), nil
+	orderNo := uuid.New()
+	booking.OrderNo = orderNo.String()
 	booking.HotelId = hotelId
 
-	orders[booking.OrderId] = booking
+	orders[booking.OrderNo] = booking
 
 	return Response(200, booking), nil
-
 }

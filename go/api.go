@@ -22,7 +22,9 @@ import (
 type DefaultAPIRouter interface { 
 	ResortsGet(http.ResponseWriter, *http.Request)
 	ResortsResortIdHotelsGet(http.ResponseWriter, *http.Request)
-	ResortsResortIdHotelsHotelIdBookingsPut(http.ResponseWriter, *http.Request)
+	ResortsResortIdHotelsHotelIdBookingsOrderNoDelete(http.ResponseWriter, *http.Request)
+	ResortsResortIdHotelsHotelIdBookingsOrderNoPut(http.ResponseWriter, *http.Request)
+	ResortsResortIdHotelsHotelIdBookingsPost(http.ResponseWriter, *http.Request)
 }
 
 
@@ -33,5 +35,7 @@ type DefaultAPIRouter interface {
 type DefaultAPIServicer interface { 
 	ResortsGet(context.Context) (ImplResponse, error)
 	ResortsResortIdHotelsGet(context.Context, int32) (ImplResponse, error)
-	ResortsResortIdHotelsHotelIdBookingsPut(context.Context, int32, int32, Booking) (ImplResponse, error)
+	ResortsResortIdHotelsHotelIdBookingsOrderNoDelete(context.Context, int32, int32, int32) (ImplResponse, error)
+	ResortsResortIdHotelsHotelIdBookingsOrderNoPut(context.Context, int32, int32, int32, Booking) (ImplResponse, error)
+	ResortsResortIdHotelsHotelIdBookingsPost(context.Context, int32, int32, Booking) (ImplResponse, error)
 }
