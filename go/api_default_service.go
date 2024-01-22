@@ -12,6 +12,7 @@ package openapi
 import (
 	"context"
 	"errors"
+	"fmt"
 	"net/http"
 
 	"github.com/google/uuid"
@@ -129,8 +130,17 @@ func (s *DefaultAPIService) ResortsResortIdHotelsHotelIdBookingsOrderNoDelete(ct
 
 	// TODO: Uncomment the next line to return response Response(404, Message{}) or use other options such as http.Ok ...
 	// return Response(404, Message{}), nil
+	booking := orders[orderNo]
 
-	return Response(http.StatusNotImplemented, nil), errors.New("ResortsResortIdHotelsHotelIdBookingsOrderNoDelete method not implemented")
+	if booking.OrderNo == "" {
+		return Response(http.StatusNotFound, Message{
+			Code:    "XXX404",
+			Message: fmt.Sprintf("削除対象予約が存在しません。OrderNo=%s", orderNo),
+		}), nil
+	} else {
+		delete(orders, orderNo)
+		return Response(http.StatusOK, booking), nil
+	}
 }
 
 // ResortsResortIdHotelsHotelIdBookingsOrderNoPut - ホテルの予約を変更する。
@@ -144,7 +154,19 @@ func (s *DefaultAPIService) ResortsResortIdHotelsHotelIdBookingsOrderNoPut(ctx c
 	// TODO: Uncomment the next line to return response Response(404, Message{}) or use other options such as http.Ok ...
 	// return Response(404, Message{}), nil
 
-	return Response(http.StatusNotImplemented, nil), errors.New("ResortsResortIdHotelsHotelIdBookingsOrderNoPut method not implemented")
+	oldBooking := orders[orderNo]
+
+	if oldBooking.OrderNo == "" {
+		return Response(http.StatusNotFound, Message{
+			Code:    "XXX404",
+			Message: fmt.Sprintf("変更対象が存在しません。OrderNo=%s", orderNo),
+		}), nil
+	} else {
+		booking.HotelId = hotelId
+		booking.OrderNo = orderNo
+		orders[orderNo] = booking
+		return Response(http.StatusOK, booking), nil
+	}
 }
 
 // ResortsResortIdHotelsHotelIdBookingsPost - ホテルの予約をとる。
