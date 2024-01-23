@@ -218,6 +218,17 @@ components:
         telNo:
           type: string
           description: ホテル電話番号
+        roomTypes:
+          description: 提供できる部屋タイプの一覧
+          type: array
+          items:
+            properties:
+              name:
+                type: string
+                description: 部屋種類名称
+              detail:
+                type: string
+                description: 部屋タイプの詳細
 
     booking:
       type: object
@@ -225,9 +236,22 @@ components:
         orderNo:
           type: string
           description: お客様問い合わせ用注文番号
+        resortId:
+          type: integer
+          description: 予約するホテルのスキー場の内部ID
         hotelId:
           type: integer
           description: 予約するホテルの内部ID
+        checkinDate:
+          type: string
+          format: date
+          description: チェックイン日付
+        stayDays:
+          type: integer
+          description: 滞在日数
+        roomType:
+          type: string
+          description: ホテルに予約する部屋タイプの名称
         bookingGuest:
           description: 代表者情報
           $ref: '#/components/schemas/guest'
@@ -243,6 +267,11 @@ components:
                     type: string
       required:
         - orderId
+        - resortId
+        - hotelId
+        - checkinDate
+        - stayDays
+        - roomType
         - bookingGuest
 
     guest:

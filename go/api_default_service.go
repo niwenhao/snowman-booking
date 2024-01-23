@@ -85,6 +85,24 @@ func (s *DefaultAPIService) ResortsResortIdHotelsGet(ctx context.Context, pResor
 				Name:     "湯沢湯沢でんき屋",
 				Address:  "〒949-6103 新潟県, 湯沢町, 土樽155",
 				TelNo:    "123-456-7890",
+				RoomTypes: []HotelRoomTypesInner{
+					HotelRoomTypesInner{
+						Name:   "S",
+						Detail: "シングルベッド×２、部屋が少し狭いですが、設備がしっかりしました。賃料が安い。二人まで",
+					},
+					HotelRoomTypesInner{
+						Name:   "K",
+						Detail: "ツインズベッド、ロマンチックな雰囲気。二人まで",
+					},
+					HotelRoomTypesInner{
+						Name:   "SK",
+						Detail: "家族向け、小さい子にも安全な和室、4人まで",
+					},
+					HotelRoomTypesInner{
+						Name:   "DK",
+						Detail: "家族向け、小さい子にも安全な和室、6人まで",
+					},
+				},
 			},
 			Hotel{
 				Id:       2,
@@ -92,6 +110,24 @@ func (s *DefaultAPIService) ResortsResortIdHotelsGet(ctx context.Context, pResor
 				Name:     "エンゼルリゾート湯沢",
 				Address:  "〒949-6103 新潟県, 湯沢町",
 				TelNo:    "234-567-8901",
+				RoomTypes: []HotelRoomTypesInner{
+					HotelRoomTypesInner{
+						Name:   "1",
+						Detail: "シングルベッド×２、部屋が少し狭いですが、設備がしっかりしました。賃料が安い。二人まで",
+					},
+					HotelRoomTypesInner{
+						Name:   "2",
+						Detail: "ツインズベッド、ロマンチックな雰囲気。二人まで",
+					},
+					HotelRoomTypesInner{
+						Name:   "3",
+						Detail: "家族向け、小さい子にも安全な和室、4人まで",
+					},
+					HotelRoomTypesInner{
+						Name:   "4",
+						Detail: "家族向け、小さい子にも安全な和室、6人まで",
+					},
+				},
 			},
 		}
 		return Response(200, hotels), nil
@@ -105,6 +141,24 @@ func (s *DefaultAPIService) ResortsResortIdHotelsGet(ctx context.Context, pResor
 				Name:     "高砂屋旅館",
 				Address:  "〒990-2301 山形県, 蔵王温泉, 蔵王温泉23",
 				TelNo:    "123-456-7890",
+				RoomTypes: []HotelRoomTypesInner{
+					HotelRoomTypesInner{
+						Name:   "S",
+						Detail: "シングルベッド×２、部屋が少し狭いですが、設備がしっかりしました。賃料が安い。二人まで",
+					},
+					HotelRoomTypesInner{
+						Name:   "C",
+						Detail: "ツインズベッド、ロマンチックな雰囲気。二人まで",
+					},
+					HotelRoomTypesInner{
+						Name:   "SF",
+						Detail: "家族向け、小さい子にも安全な和室、4人まで",
+					},
+					HotelRoomTypesInner{
+						Name:   "BF",
+						Detail: "家族向け、小さい子にも安全な和室、6人まで",
+					},
+				},
 			},
 			Hotel{
 				Id:       2,
@@ -112,6 +166,24 @@ func (s *DefaultAPIService) ResortsResortIdHotelsGet(ctx context.Context, pResor
 				Name:     "深山荘高見屋",
 				Address:  "〒990-2301 山形県, 蔵王温泉, 蔵王温泉54",
 				TelNo:    "234-567-8901",
+				RoomTypes: []HotelRoomTypesInner{
+					HotelRoomTypesInner{
+						Name:   "A",
+						Detail: "シングルベッド×２、部屋が少し狭いですが、設備がしっかりしました。賃料が安い。二人まで",
+					},
+					HotelRoomTypesInner{
+						Name:   "B",
+						Detail: "ツインズベッド、ロマンチックな雰囲気。二人まで",
+					},
+					HotelRoomTypesInner{
+						Name:   "C",
+						Detail: "家族向け、小さい子にも安全な和室、4人まで",
+					},
+					HotelRoomTypesInner{
+						Name:   "D",
+						Detail: "家族向け、小さい子にも安全な和室、6人まで",
+					},
+				},
 			},
 		}
 		return Response(200, hotels), nil
@@ -163,6 +235,7 @@ func (s *DefaultAPIService) ResortsResortIdHotelsHotelIdBookingsOrderNoPut(ctx c
 		}), nil
 	} else {
 		booking.HotelId = pHotelId
+		booking.ResortId = pResortId
 		booking.OrderNo = pOrderNo
 		orders[pOrderNo] = booking
 		return Response(http.StatusOK, booking), nil

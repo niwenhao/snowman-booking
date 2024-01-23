@@ -17,8 +17,20 @@ type Booking struct {
 	// お客様問い合わせ用注文番号
 	OrderNo string `json:"orderNo,omitempty"`
 
+	// 予約するホテルのスキー場の内部ID
+	ResortId int32 `json:"resortId,omitempty"`
+
 	// 予約するホテルの内部ID
 	HotelId int32 `json:"hotelId,omitempty"`
+
+	// チェックイン日付
+	CheckinDate string `json:"checkinDate,omitempty"`
+
+	// 滞在日数
+	StayDays int32 `json:"stayDays,omitempty"`
+
+	// ホテルに予約する部屋タイプの名称
+	RoomType string `json:"roomType,omitempty"`
 
 	BookingGuest Guest `json:"bookingGuest"`
 

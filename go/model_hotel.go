@@ -28,10 +28,18 @@ type Hotel struct {
 
 	// ホテル電話番号
 	TelNo string `json:"telNo,omitempty"`
+
+	// 提供できる部屋タイプの一覧
+	RoomTypes []HotelRoomTypesInner `json:"roomTypes,omitempty"`
 }
 
 // AssertHotelRequired checks if the required fields are not zero-ed
 func AssertHotelRequired(obj Hotel) error {
+	for _, el := range obj.RoomTypes {
+		if err := AssertHotelRoomTypesInnerRequired(el); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 
