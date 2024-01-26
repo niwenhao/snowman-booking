@@ -50,6 +50,21 @@ func (s *DefaultAPIService) ResortsGet(ctx context.Context) (ImplResponse, error
 					WindSpeed: 5,
 					SnowDepth: 50,
 				},
+				ResortWeatherInner{
+					Weather:   "rain",
+					WindSpeed: 6,
+					SnowDepth: 40,
+				},
+				ResortWeatherInner{
+					Weather:   "snow",
+					WindSpeed: 7,
+					SnowDepth: 20,
+				},
+				ResortWeatherInner{
+					Weather:   "cloud",
+					WindSpeed: 8,
+					SnowDepth: 100,
+				},
 			},
 		},
 		Resort{
@@ -58,9 +73,24 @@ func (s *DefaultAPIService) ResortsGet(ctx context.Context) (ImplResponse, error
 			Address: "〒990-2301山形県山形市蔵王温泉",
 			Weather: []ResortWeatherInner{
 				ResortWeatherInner{
+					Weather:   "snow",
+					WindSpeed: 7,
+					SnowDepth: 20,
+				},
+				ResortWeatherInner{
+					Weather:   "cloud",
+					WindSpeed: 8,
+					SnowDepth: 100,
+				},
+				ResortWeatherInner{
 					Weather:   "sunny",
 					WindSpeed: 5,
 					SnowDepth: 50,
+				},
+				ResortWeatherInner{
+					Weather:   "rain",
+					WindSpeed: 6,
+					SnowDepth: 40,
 				},
 			},
 		},
