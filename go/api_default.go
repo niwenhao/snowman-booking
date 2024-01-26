@@ -10,8 +10,10 @@
 package openapi
 
 import (
+	"bufio"
 	"encoding/json"
 	"net/http"
+	"os"
 	"strings"
 
 	"github.com/gorilla/mux"
@@ -19,7 +21,7 @@ import (
 
 // DefaultAPIController binds http requests to an api service and writes the service results to the http response
 type DefaultAPIController struct {
-	service DefaultAPIServicer
+	service      DefaultAPIServicer
 	errorHandler ErrorHandler
 }
 
@@ -50,6 +52,11 @@ func NewDefaultAPIController(s DefaultAPIServicer, opts ...DefaultAPIOption) Rou
 // Routes returns all the api routes for the DefaultAPIController
 func (c *DefaultAPIController) Routes() Routes {
 	return Routes{
+		"ApiGet": Route{
+			strings.ToUpper("Get"),
+			"/v1/apidoc",
+			c.ApiGet,
+		},
 		"ResortsGet": Route{
 			strings.ToUpper("Get"),
 			"/v1/resorts",
@@ -75,6 +82,22 @@ func (c *DefaultAPIController) Routes() Routes {
 			"/v1/resorts/{p_resortId}/hotels/{p_hotelId}/bookings",
 			c.ResortsResortIdHotelsHotelIdBookingsPost,
 		},
+	}
+}
+
+func (c *DefaultAPIController) ApiGet(w http.ResponseWriter, r *http.Request) {
+	file, err := os.Open("snowman-booking.yml")
+	if err != nil {
+		return
+	}
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+
+	w.Header().Add("Content-Type", "text/yaml")
+	w.WriteHeader(200)
+	for scanner.Scan() {
+		w.Write([]byte(scanner.Text() + "\n"))
 	}
 }
 
