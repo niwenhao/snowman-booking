@@ -182,7 +182,7 @@ components:
           description: スキー場の住所
         weather:
           type: array
-          description: スキー場の天気状況、0番目は昨日の天気、1番目は一昨日の天気。。。。
+          description: 明日からスキー場の天気状況。
           items:
             type: object
             properties:
